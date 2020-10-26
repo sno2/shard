@@ -45,3 +45,11 @@ To load a generated shard simply pass it into the Shard constructor as an argume
 ```ts
 new Shard("20dLrFRw1eE");
 ```
+
+## Multi-threaded
+
+If you're using Shard when multi-threading you should also define the shard/serviceID in the shard object to prevent ID collisions:
+
+```ts
+new Shard({ shard: 1 });
+```
