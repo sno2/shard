@@ -10,7 +10,6 @@ import {
 	packShard,
 	packTimestamp,
 } from "./_bits.ts";
-import { b64 } from "./_constants.ts";
 
 /** The options that can be used in a shard. */
 export interface ShardOptions
