@@ -11,3 +11,14 @@ export const shardPos = 14n;
 export const shardSize = 6n;
 export const timestampPos = 20n;
 export const timestampSize = 44n;
+
+export const versionPos = 104n;
+export const versionSize = 16n;
+export const iatPos = 120n;
+export const iatSize = 40n;
+export const expPos = 160n;
+export const expSize = 40n;
+export const updPos = 200n;
+export const updSize = 40n;
+export const hashPos = 240n;
+export const hashSize = 256n;

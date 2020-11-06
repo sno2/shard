@@ -8,7 +8,17 @@ import {
 	shardPos,
 	shardSize,
 	timestampPos,
-	timestampSize
+	timestampSize,
+	iatPos,
+	iatSize,
+	expPos,
+	expSize,
+	updPos,
+	updSize,
+	hashPos,
+	hashSize,
+	versionPos,
+	versionSize
 } from "./_constants.ts";
 
 /**
@@ -99,8 +109,114 @@ export function unpackTimestamp (n: bigint): bigint
  * Pack a timestamp into the shard.
  * @param n The shard.
  * @param value The timestamp.
+ * @internal
  */
 export function packTimestamp (n: bigint, value: bigint): bigint
 {
 	return pack(n, value, timestampPos, timestampSize);
+}
+
+/**
+ * Unpack the integrity shard version.
+ * @param n The shard.
+ * @internal
+ */
+export function unpackVersion (n: bigint): bigint
+{
+	return unpack(n, versionPos, versionSize);
+}
+
+/**
+ * Pack a version number into a integrity shard.
+ * @param n The shard.
+ * @param value The timestamp.
+ * @internal
+ */
+export function packVersion (n: bigint, value: bigint): bigint
+{
+	return pack(n, value, versionPos, versionSize);
+}
+
+/**
+ * Unpack the issued at timestamp from the integrity shard.
+ * @param n The shard.
+ * @internal
+ */
+export function unpackIssuedAt (n: bigint): bigint
+{
+	return unpack(n, iatPos, iatSize);
+}
+
+/**
+ * Pack an issued at timestamp into a integrity shard.
+ * @param n The shard.
+ * @param value The timestamp.
+ * @internal
+ */
+export function packIssuedAt (n: bigint, value: bigint): bigint
+{
+	return pack(n, value, iatPos, iatSize);
+}
+
+/**
+ * Unpack the expires at timestamp from the integrity shard.
+ * @param n The shard.
+ * @internal
+ */
+export function unpackExpiresAt (n: bigint): bigint
+{
+	return unpack(n, expPos, expSize);
+}
+
+/**
+ * Pack an expires at timestamp into a integrity shard.
+ * @param n The shard.
+ * @param value The timestamp.
+ * @internal
+ */
+export function packExpiresAt (n: bigint, value: bigint): bigint
+{
+	return pack(n, value, expPos, expSize);
+}
+
+/**
+ * Unpack the updated at timestamp from the integrity shard.
+ * @param n The shard.
+ * @internal
+ */
+export function unpackUpdatedAt (n: bigint): bigint
+{
+	return unpack(n, updPos, updSize);
+}
+
+/**
+ * Pack an updated at timestamp into a integrity shard.
+ * @param n The shard.
+ * @param value The timestamp.
+ * @internal
+ */
+export function packUpdatedAt (n: bigint, value: bigint): bigint
+{
+	return pack(n, value, updPos, updSize);
+}
+
+/**
+ * Unpack the hash from the integrity shard.
+ * @param n The shard.
+ * @internal
+ */
+export function unpackHash (n: bigint): bigint
+{
+	return unpack(n, hashPos, hashSize);
+}
+
+/**
+ * Pack a hash into a integrity shard.
+ * @param n The shard.
+ * @param value The timestamp.
+ * @internal
+ */
+export function packHash (n: bigint, value: bigint): bigint
+{
+	return pack(n, value, hashPos, hashSize);
 }
