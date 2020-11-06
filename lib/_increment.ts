@@ -11,6 +11,7 @@ let i = 0;
  */
 export function increment (max: number = defaultMaxNoise): number
 {
+	if (max === 0) return i = 0;
 	const current = i;
 	i = (i + 1) % max;
 	return current;
