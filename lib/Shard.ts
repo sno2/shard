@@ -25,6 +25,16 @@ export interface ShardOptions
 };
 
 /**
+ * The shard option types.
+ */
+export type ShardConstructorOptions =
+	| Partial<ShardOptions>
+	| Shard
+	| string
+	| bigint
+	;
+
+/**
  * A unique identity for everyone and everything.
  */
 export class Shard
@@ -36,8 +46,10 @@ export class Shard
 	 * Generate a new shard.
 	 * @param options The shard generation options.
 	 */
-	public constructor (options?: Partial<ShardOptions> | Shard | string | bigint, base: Base | string = base62)
-	{
+	public constructor (
+		options?: ShardConstructorOptions,
+		base: Base | string = base62
+	) {
 		if (typeof options === "string") options = Base.decode(options, base as string);
 		if (options instanceof Shard)
 		{
