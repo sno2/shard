@@ -2,7 +2,13 @@
 import {
 	zero,
 	one,
-	two
+	two,
+	countPos,
+	countSize,
+	shardPos,
+	shardSize,
+	timestampPos,
+	timestampSize
 } from "./_constants.ts";
 
 /**
@@ -44,7 +50,7 @@ export function pack (
  */
 export function unpackCount (n: bigint): bigint
 {
-	return unpack(n, zero, 14n);
+	return unpack(n, countPos, countSize);
 }
 
 /**
@@ -55,7 +61,7 @@ export function unpackCount (n: bigint): bigint
  */
 export function packCount (n: bigint, value: bigint): bigint
 {
-	return pack(n, value, zero, 14n);
+	return pack(n, value, countPos, countSize);
 }
 
 /**
@@ -65,7 +71,7 @@ export function packCount (n: bigint, value: bigint): bigint
  */
 export function unpackShard (n: bigint): bigint
 {
-	return unpack(n, 14n, 6n);
+	return unpack(n, shardPos, shardSize);
 }
 
 /**
@@ -76,7 +82,7 @@ export function unpackShard (n: bigint): bigint
  */
 export function packShard (n: bigint, value: bigint): bigint
 {
-	return pack(n, value, 14n, 6n);
+	return pack(n, value, shardPos, shardSize);
 }
 
 /**
@@ -86,7 +92,7 @@ export function packShard (n: bigint, value: bigint): bigint
  */
 export function unpackTimestamp (n: bigint): bigint
 {
-	return unpack(n, 20n, 44n);
+	return unpack(n, timestampPos, timestampSize);
 }
 
 /**
@@ -96,5 +102,5 @@ export function unpackTimestamp (n: bigint): bigint
  */
 export function packTimestamp (n: bigint, value: bigint): bigint
 {
-	return pack(n, value, 20n, 44n);
+	return pack(n, value, timestampPos, timestampSize);
 }
