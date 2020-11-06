@@ -5,8 +5,8 @@ import {
 	two,
 	countPos,
 	countSize,
-	shardPos,
-	shardSize,
+	servicePos,
+	serviceSize,
 	timestampPos,
 	timestampSize,
 	iatPos,
@@ -75,24 +75,24 @@ export function packCount (n: bigint, value: bigint): bigint
 }
 
 /**
- * Unpack the shard (or serviceID) from a shard.
+ * Unpack the service ID from a shard.
  * @param n The shard.
  * @internal
  */
-export function unpackShard (n: bigint): bigint
+export function unpackService (n: bigint): bigint
 {
-	return unpack(n, shardPos, shardSize);
+	return unpack(n, servicePos, serviceSize);
 }
 
 /**
- * Pack the shard (or serviceID) into a shard.
+ * Pack the service ID into a shard.
  * @param n The shard.
  * @param value The shard or serviceID.
  * @internal
  */
-export function packShard (n: bigint, value: bigint): bigint
+export function packService (n: bigint, value: bigint): bigint
 {
-	return pack(n, value, shardPos, shardSize);
+	return pack(n, value, servicePos, serviceSize);
 }
 
 /**

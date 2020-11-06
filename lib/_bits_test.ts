@@ -3,7 +3,7 @@ import { assertStrictEquals } from "https://deno.land/std@0.74.0/testing/asserts
 import {
 	unpack,
 	unpackCount,
-	unpackShard,
+	unpackService,
 	unpackTimestamp,
 	unpackVersion,
 	unpackExpiresAt,
@@ -12,19 +12,19 @@ import {
 	unpackHash,
 	pack,
 	packCount,
-	packShard,
+	packService,
 	packTimestamp,
 	packVersion,
 	packExpiresAt,
 	packIssuedAt,
 	packUpdatedAt,
-	packHash,
+	packHash
 } from "./_bits.ts";
 import {
 	countPos,
 	countSize,
-	shardPos,
-	shardSize,
+	servicePos,
+	serviceSize,
 	timestampPos,
 	timestampSize,
 	expPos,
@@ -93,9 +93,9 @@ Deno.test("unpack count", async () => {
 	);
 });
 
-Deno.test("unpack shard", async () => {
+Deno.test("unpack service ID", async () => {
 	assertStrictEquals(
-		unpackShard(mess(shardPos, shardSize)),
+		unpackService(mess(servicePos, serviceSize)),
 		0b110011n
 	);
 });
@@ -149,10 +149,10 @@ Deno.test("pack count", async () => {
 	);
 });
 
-Deno.test("pack shard", async () => {
+Deno.test("pack service ID", async () => {
 	assertStrictEquals(
-		packShard(0n, 1n),
-		1n << shardPos
+		packService(0n, 1n),
+		1n << servicePos
 	);
 });
 

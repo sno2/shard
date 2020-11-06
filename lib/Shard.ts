@@ -4,10 +4,10 @@ import { Base, base62, big } from "../deps.ts";
 import { increment } from "./_increment.ts";
 import {
 	unpackCount,
-	unpackShard,
+	unpackService,
 	unpackTimestamp,
 	packCount,
-	packShard,
+	packService,
 	packTimestamp,
 } from "./_bits.ts";
 
@@ -18,7 +18,7 @@ export interface ShardOptions
 	count: number,
 	
 	/** The shard ID to prevent duplicates over multi-threaded services. */
-	shard: number,
+	service: number,
 	
 	/** The shard's creation date. */
 	timestamp: Date | number
@@ -43,20 +43,20 @@ export class Shard
 		{
 			this
 				.count(options.count())
-				.shard(options.shard())
+				.service(options.service())
 				.timestamp(options.timestamp());
 		} else if (typeof options === "bigint")
 		{
 			this
 				.count(unpackCount(options))
-				.shard(unpackShard(options))
+				.service(unpackService(options))
 				.timestamp(unpackTimestamp(options));
 		} else
 		{
 			const count = typeof options === "object" && options !== null && typeof options.count === "number" ? options.count : increment();
 			this
 				.count(count)
-				.shard(options?.shard ?? 0)
+				.service(options?.service ?? 0)
 				.timestamp(options?.timestamp ?? Date.now());
 		}
 	}
@@ -115,24 +115,24 @@ export class Shard
 	}
 	
 	/**
-	 * Get the shard/serviceID of the shard representative.
+	 * Get the serviceID of the shard representative.
 	 */
-	public shard (): number;
+	public service (): number;
 	
 	/**
-	 * Set the shard/serviceId on this shard representative.
+	 * Set the serviceId on this shard representative.
 	 * @param value The shard/serviceID.
 	 */
-	public shard (value: Big): this;
+	public service (value: Big): this;
 	
 	/**
-	 * Get or set the shard/serviceID on this shard representative.
+	 * Get or set the serviceID on this shard representative.
 	 * @param value The shard/serviceID.
 	 */
-	public shard (value?: Big): this | number
+	public service (value?: Big): this | number
 	{
-		if (value === undefined) return Number(unpackShard(this.#shard));
-		this.#shard = packShard(this.#shard, big(value));
+		if (value === undefined) return Number(unpackService(this.#shard));
+		this.#shard = packService(this.#shard, big(value));
 		return this;
 	}
 	
