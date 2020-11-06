@@ -44,7 +44,54 @@ export class Shard
 	
 	/**
 	 * Generate a new shard.
-	 * @param options The shard generation options.
+	 */
+	public constructor ();
+	
+	/**
+	 * Create a new shard with custom options.
+	 * @param options The options.
+	 */
+	public constructor (options: Partial<ShardOptions>);
+	
+	/**
+	 * Clone another shard.
+	 * @param shard The shard to clone.
+	 */
+	public constructor (shard: Shard);
+	
+	/**
+	 * Deconstruct a string into a shard object.
+	 * @param representation The string representation.
+	 */
+	public constructor (representation: string);
+	
+	/**
+	 * Deconstruct a string into a shard object, using a custom base.
+	 * @param representation The string representation.
+	 * @param base The base.
+	 */
+	public constructor (representation: string, base: Base);
+	
+	/**
+	 * Deconstruct a string into a shard object, using a custom
+	 * alphabet.
+	 * @param representation The string representation.
+	 * @param alphabet The alphabet.
+	 */
+	public constructor (representation: string, alphabet: string);
+	
+	/**
+	 * Deconstruct a big integer into a shard object.
+	 * @param representation The big integer representation.
+	 */
+	public constructor (representation: bigint);
+	
+	/**
+	 * Generate, deconstruct a string or big integer representation
+	 * into a shard, or generate a new shard.
+	 * @param options The generation options.
+	 * @param base The custom base or alphabet used to deconstruct a
+	 *  string representation.
 	 */
 	public constructor (
 		options?: ShardConstructorOptions,
