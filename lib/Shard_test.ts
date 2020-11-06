@@ -125,3 +125,13 @@ Deno.test("modifications to shard", () => {
 	g.num(1n);
 	assertStrictEquals(g.num(), 1n);
 });
+
+Deno.test("create shard from longer string", () => {
+	const g = new Shard("4t2N");
+	assertStrictEquals(g.num(), 1064961n);
+	assertStrictEquals(g.str(), "4t2N");
+	assertStrictEquals(g.count(), 1);
+	assertStrictEquals(g.shard(), 1);
+	assertStrictEquals(g.timestamp(), 1);
+	assertEquals(g.date(), new Date(1));
+});
