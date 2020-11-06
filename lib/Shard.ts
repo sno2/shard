@@ -180,5 +180,3 @@ export class Shard
 	}
 	
 }
-
-export default Shard;
