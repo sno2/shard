@@ -101,3 +101,22 @@ token.verify();
 ```
 
 The integrity shard verification will return a string upon failure, or undefined if there are no issues with the integrity shard.
+
+### Extend integrity shard lifetime
+
+```ts
+const token = IntegrityShard.from(secret, req.headers.authorization);
+
+// Verify that the token has not been tampered with.
+const __tokenVerify = token.verify();
+if (typeof __tokenVerify === "string")
+	throw new Error(__tokenVerify);
+
+const __refreshTokenVerify = token.verifyRefreshToken(req.headers["refresh-token"]);
+if (typeof __refreshTokenVerify === "string")
+	throw new Error(__refreshTokenVerify);
+
+// give this new token to the client
+const newToken = token.ext();
+const newRefreshToken = token.getRefreshToken();
+```
