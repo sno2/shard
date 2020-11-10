@@ -101,23 +101,41 @@ export class Shard
 		if (options instanceof Shard)
 		{
 			this
-				.count(options.count())
-				.service(options.service())
-				.timestamp(options.timestamp());
+				._count(BigInt(options.count()))
+				._service(BigInt(options.service()))
+				._timestamp(BigInt(options.timestamp()));
 		} else if (typeof options === "bigint")
 		{
 			this
-				.count(unpackCount(options))
-				.service(unpackService(options))
-				.timestamp(unpackTimestamp(options));
+				._count(unpackCount(options))
+				._service(unpackService(options))
+				._timestamp(unpackTimestamp(options));
 		} else
 		{
 			const count = typeof options === "object" && options !== null && typeof options.count === "number" ? options.count : increment();
 			this
-				.count(count)
-				.service(options?.service ?? 0)
-				.timestamp(options?.timestamp ?? Date.now());
+				._count(BigInt(count))
+				._service(BigInt(options?.service ?? 0))
+				._timestamp(BigInt(options?.timestamp ?? Date.now()));
 		}
+	}
+	
+	private _count (value: bigint): this
+	{
+		this.#shard = packCount(this.#shard, big(value));
+		return this;
+	}
+	
+	private _service (value: bigint): this
+	{
+		this.#shard = packService(this.#shard, big(value));
+		return this;
+	}
+	
+	private _timestamp (value: bigint): this
+	{
+		this.#shard = packTimestamp(this.#shard, big(new Date(typeof value === "bigint" ? Number(value) : value).getTime()));
+		return this;
 	}
 	
 	/**
@@ -146,9 +164,9 @@ export class Shard
 	 * Get the shard represented as a string.
 	 * @param base The base or alphabet to get the shard represented in.
 	 */
-	public str (base: Base | string = base62): string
+	public str (base: Base | string = base62): string
 	{
-		return Base.encode(this.#shard, base as string)
+		return Base.encode(this.#shard, base as string);
 	}
 	
 	/**

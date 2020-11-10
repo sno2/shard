@@ -116,6 +116,8 @@ Deno.test("modifications to shard", () => {
 	g.count(1);
 	g.service(1);
 	g.timestamp(1);
+	g.date(new Date(1));
+	g.date(1);
 	assertStrictEquals(g.num(), 1064961n);
 	assertStrictEquals(g.str(), "4t2N");
 	assertStrictEquals(g.count(), 1);

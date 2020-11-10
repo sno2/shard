@@ -1,10 +1,10 @@
 # Shard
 
-A unique ID for everyone and everything.
+An authentic unique ID for everyone and everything.
 
 ```
-64 (44) Timestamp                            20 (6) Shard 14 (14) Noise 0
- 00010111010101011101110111010011101111000111 000000       00000000000000
+64 (44) Timestamp                               20 (6) Service   14 (14) Noise 0
+ 00010111010101011101110111010011101111000111    000000           00000000000000
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ The shard module is very easy to use, simply import Shard like:
 
 ```ts
 // Imports
-import Shard from "https://deno.land/x/shard/mod.ts";
+import { Shard } from "https://deno.land/x/shard/mod.ts";
 ```
 
 To generate a new shard simply create a new instance of shard:
@@ -33,7 +33,7 @@ To get the timestamp, shard/serviceID or count simply call their respective meth
 
 ```ts
 sid.count(); // 0
-sid.shard(); // serviceID
+sid.service(); // serviceID
 sid.timestamp(); // 1603702991291
 sid.date(); // 2020-10-26T09:03:31.309Z
 ```
@@ -48,8 +48,56 @@ new Shard("20dLrFRw1eE");
 
 ## Multi-threaded
 
-If you're using Shard when multi-threading you should also define the shard/serviceID in the shard object to prevent ID collisions:
+If you're using Shard when using multiple threads or workers you should also define the serviceID in the shard object to prevent ID collisions:
 
 ```ts
-new Shard({ shard: 1 });
+new Shard({ service: 1 });
 ```
+
+## Shards with Integrity
+
+Shards with integrity is a concept very similar to JSON Web Tokens, the only differences are that an integrity shard doesn't store header info or JSON data. An integrity shard stores a hash, expiration timestamp, last updated timestamp and issued at timestamp, version and the shard (id) itself. This reaches the same goals as JWT just for storing an authentic ID. The ID cannot be manipulated, nor can any of the timestamps.
+
+```ts
+// Imports
+import { IntegrityShard } from "https://deno.land/x/shard";
+```
+
+Create a new integrity shard.
+
+```ts
+const myShard = new Shard();
+
+const token = new IntegrityShard({
+	secret: "hello-world",
+	shard: myShard
+});
+
+// Should be passed as Authorization header.
+const Authorization = token.str();
+
+// Should be passed as X-Refresh-Token header.
+const xRefreshToken = token.getRefreshToken();
+```
+
+To verify a refresh token execute the following:
+
+```ts
+token.verifyRefreshToken(xRefreshToken);
+// "refresh token expired"
+// "refresh token invalid"
+// undefined
+```
+
+The refresh token verification will return a string upon failure, or undefined if there are no issues with the refresh token.
+
+To validate the integrity of the integrity shard execute the following:
+
+```ts
+token.verify();
+// "token expired"
+// "token invalid"
+// undefined
+```
+
+The integrity shard verification will return a string upon failure, or undefined if there are no issues with the integrity shard.

@@ -1,5 +1,5 @@
 // Imports
-import { defaultMaxNoise } from "./_constants.ts";
+import { defaultMaxNoise } from "./_constants.ts";
 
 /** The incremented value. */
 let i = 0;
