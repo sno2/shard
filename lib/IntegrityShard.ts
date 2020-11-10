@@ -1,5 +1,6 @@
 // Imports
-import type { Big, Message } from "../deps.ts";
+import type { Big } from "../deps.ts";
+import type { Message } from "../deps2.ts";
 import type { ShardConstructorOptions } from "./Shard.ts";
 import { Base, base62 } from "../deps.ts";
 import { Shard } from "./Shard.ts";

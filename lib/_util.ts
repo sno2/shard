@@ -1,6 +1,7 @@
 // Imports
-import type { Message } from "../deps.ts";
-import { HmacSha256, big } from "../deps.ts";
+import type { Message } from "../deps2.ts";
+import { big } from "../deps.ts";
+import { HmacSha256 } from "../deps2.ts";
 import { eight, thousand, zero } from "./_constants.ts";
 
 /**
