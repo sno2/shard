@@ -40,7 +40,7 @@ export type ShardConstructorOptions =
 export class Shard
 {
 	
-	#shard: bigint = 0n;
+	private _shard: bigint = 0n;
 	
 	/**
 	 * Generate a new shard.
@@ -122,19 +122,19 @@ export class Shard
 	
 	private _count (value: bigint): this
 	{
-		this.#shard = packCount(this.#shard, big(value));
+		this._shard = packCount(this._shard, big(value));
 		return this;
 	}
 	
 	private _service (value: bigint): this
 	{
-		this.#shard = packService(this.#shard, big(value));
+		this._shard = packService(this._shard, big(value));
 		return this;
 	}
 	
 	private _timestamp (value: bigint): this
 	{
-		this.#shard = packTimestamp(this.#shard, big(new Date(typeof value === "bigint" ? Number(value) : value).getTime()));
+		this._shard = packTimestamp(this._shard, big(new Date(typeof value === "bigint" ? Number(value) : value).getTime()));
 		return this;
 	}
 	
@@ -155,8 +155,8 @@ export class Shard
 	 */
 	public num (value?: bigint): bigint | this
 	{
-		if (value === undefined) return this.#shard;
-		this.#shard = value;
+		if (value === undefined) return this._shard;
+		this._shard = value;
 		return this;
 	}
 	
@@ -166,7 +166,7 @@ export class Shard
 	 */
 	public str (base: Base | string = base62): string
 	{
-		return Base.encode(this.#shard, base as string);
+		return Base.encode(this._shard, base as string);
 	}
 	
 	/**
@@ -186,8 +186,8 @@ export class Shard
 	 */
 	public count (value?: Big): this | number
 	{
-		if (value === undefined) return Number(unpackCount(this.#shard));
-		this.#shard = packCount(this.#shard, big(value));
+		if (value === undefined) return Number(unpackCount(this._shard));
+		this._shard = packCount(this._shard, big(value));
 		return this;
 	}
 	
@@ -208,8 +208,8 @@ export class Shard
 	 */
 	public service (value?: Big): this | number
 	{
-		if (value === undefined) return Number(unpackService(this.#shard));
-		this.#shard = packService(this.#shard, big(value));
+		if (value === undefined) return Number(unpackService(this._shard));
+		this._shard = packService(this._shard, big(value));
 		return this;
 	}
 	
@@ -230,8 +230,8 @@ export class Shard
 	 */
 	public timestamp (value?: Date | number | bigint | string): this | number
 	{
-		if (value === undefined) return Number(unpackTimestamp(this.#shard));
-		this.#shard = packTimestamp(this.#shard, big(new Date(typeof value === "bigint" ? Number(value) : value).getTime()));
+		if (value === undefined) return Number(unpackTimestamp(this._shard));
+		this._shard = packTimestamp(this._shard, big(new Date(typeof value === "bigint" ? Number(value) : value).getTime()));
 		return this;
 	}
 	
