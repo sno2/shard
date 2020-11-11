@@ -117,6 +117,7 @@ if (typeof __refreshTokenVerify === "string")
 	throw new Error(__refreshTokenVerify);
 
 // give this new token to the client
-const newToken = token.ext();
-const newRefreshToken = token.getRefreshToken();
+const newIntegrityShard = token.ext();
+const newToken = newIntegrityShard.str();
+const newRefreshToken = newToken.getRefreshToken();
 ```
